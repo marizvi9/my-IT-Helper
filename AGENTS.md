@@ -24,7 +24,8 @@ cybersecurity fundamentals. Always:
 - Next.js (App Router) + TypeScript, plain CSS. Code lives in `src/`.
 - **All colors come from CSS variables in `src/app/theme.css`.** Never hard-code a
   color anywhere else, so a school's real logo colors can be swapped in later.
-- The logo lives only in `src/components/Logo.tsx` so it's easy to replace.
+- Always show the logo through `src/components/Logo.tsx` (images in `src/assets/logo/`).
+  Use `tone="light"` on dark backgrounds and `tone="dark"` on light ones.
 - Pages must work on phones (mobile-first, no horizontal scrolling).
 - This Next.js version may differ from what you remember. Check
   `node_modules/next/dist/docs/` before using an API you're unsure about.

@@ -35,8 +35,9 @@ src/
     login/page.tsx     # /login     log-in form
     theme.css          # school colors (swap these for a real school's logo colors)
     globals.css        # shared styles that use the theme colors
+  assets/logo/         # logo images (dark/light, horizontal/stacked)
   components/
-    Logo.tsx           # filler logo (replace with a real one later)
+    Logo.tsx           # shows the right logo version
   lib/
     validation.ts      # simple form checks (email, password strength)
 ```
@@ -44,7 +45,10 @@ src/
 ## Changing the school colors or logo
 
 - **Colors:** edit the variables at the top of `src/app/theme.css`.
-- **Logo:** replace `src/components/Logo.tsx` (or drop an SVG in `public/` and point `Logo.tsx` at it).
+- **Logo:** the logo images are in `src/assets/logo/` (horizontal + stacked, each in a
+  `dark` and `light` version). Replace those files with the same names to update the logo
+  everywhere. `src/components/Logo.tsx` picks the right version. The original design files
+  are in `design/logo/`. The browser-tab icons are `src/app/icon.png` and `src/app/apple-icon.png`.
 
 ## Secrets
 

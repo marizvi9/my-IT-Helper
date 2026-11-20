@@ -166,6 +166,21 @@ Step 2 is on hold while we improve the look. Covered the whole site.
 - Decorative art is `aria-hidden`, with one text label (`role="img"`) for screen readers.
 - Everything from the demo and time-range work kept working (re-ran the browser tests).
 
+## Real logo added (2026-11-20) ✅
+
+- The owner's logo (`myitlogo.png` stacked, `logo parts.png` horizontal) replaced the filler.
+- The originals had solid white backgrounds, so I made **transparent** versions with
+  ImageMagick by separating the gold and black parts, in two tones:
+  `dark` (black lettering, for light backgrounds) and `light` (white lettering, for the dark
+  header and chalkboard). Files: `src/assets/logo/`. Originals kept in `design/logo/`.
+- **Where it appears:** header (horizontal, light), footer (horizontal, dark), chalkboard
+  call-to-action (stacked, light), sign-up and log-in cards (stacked, dark).
+- **Browser-tab icon** (`src/app/icon.png`) and **Apple home-screen icon**
+  (`src/app/apple-icon.png`): the gold "IT" on a charcoal rounded tile.
+- **Theme gold changed to the logo's gold `#DDBB30`** (plus matching light/dark shades),
+  so buttons, highlights and the ruler match the logo. Text contrast still passes WCAG AA.
+- Uses `next/image` with `preload` on the header logo (`priority` is deprecated in Next 16).
+
 ## Demo features to carry over into the real product
 
 The demo is a preview of the real thing. When building Steps 2–3, include all of these:
