@@ -76,6 +76,56 @@ A running log of each step: what was built, decisions made, and what's next.
 10. **Secrets** live in `.env.local` locally and in Vercel's Environment Variables in
     production, never in GitHub.
 
+## Step 1b: demo + header/footer polish (2026-11-20) ✅
+
+### What was built
+- **Demo** under `/demo`, with a "Demo mode" banner and tabs:
+  - **Overview** (`/demo`): explains the two views and suggests a walkthrough.
+  - **Teacher view** (`/demo/teacher`): "Ms. Rivera" sees only her own tickets (open and
+    solved) and IT's replies.
+  - **Submit a ticket** (`/demo/submit`): category, summary, room, urgency, description,
+    with validation, length limits, and **quick-fix FAQ suggestions** for the chosen category.
+    Shows a confirmation with the new ticket number.
+  - **FAQ** (`/demo/faq`): search box + category filter, open/close answers.
+  - **IT admin view** (`/demo/admin`): stats (open / in progress / solved / urgent),
+    status filters, urgent tickets first, change status, reply to teachers.
+- The views are **connected**: a ticket submitted as the teacher appears in the admin view,
+  and the admin's reply appears in the teacher view (shared `DemoProvider` context).
+- Landing page **"View demo"** button now works.
+- **Header** is a little bigger (taller bar, larger logo and buttons) and shrinks to fit
+  one row on small phones.
+- **Footer** redesigned: logo + tagline + links, and a copyright line:
+  "© 2026 My IT Helper. All rights reserved." · "A project by Mahdi Rizvi".
+
+### Files
+- `src/lib/demoData.ts`: all fake tickets, categories and FAQ articles (types included).
+- `src/app/demo/DemoProvider.tsx`: in-memory demo state (React Context).
+- `src/app/demo/DemoBits.tsx`: shared `StatusBadge`, `TicketCard`, `FaqItem`.
+- `src/app/demo/{teacher,submit,faq,admin}/`: one folder per demo page.
+
+### Decisions
+- **Demo state lives only in memory.** No localStorage, no server, so nothing typed is
+  stored (AGENTS.md rule). Refreshing resets the demo; the banner says so.
+- **Display-ready date labels** ("Today, 8:05 AM") instead of real dates. This avoids
+  time-zone mismatches between server and browser rendering in the demo.
+- **`<details>`/`<summary>`** for expandable tickets and FAQs: built-in HTML, accessible,
+  no extra JavaScript.
+- Each demo page is a small Server Component (to set the page title) that renders a
+  Client Component (the interactive part).
+- Added `--info` / `--info-bg` to `theme.css` for the "In progress" status color.
+
+### Security practices in this step
+- **XSS protection:** user-typed text is shown through normal JSX, which React escapes.
+  Tested: a title of `<script>alert(1)</script>` shows as text and doesn't run. No
+  `dangerouslySetInnerHTML` anywhere.
+- **Length limits** on every text field (title 100, room 30, description/reply 1000).
+- Ticket form reminds teachers to **never include passwords**; FAQ includes phishing and
+  password-safety tips.
+- Code comments mark what the real product must do on the **server**: only send a
+  teacher their own tickets, and check the IT-staff role before showing the admin view
+  (**authorization**). Hiding things in the browser is not security.
+
 ## What's next
-- **Step 1b: Demo.** Teacher view, ticket-submit simulator, FAQ, admin demo (fake data
-  only), and switch on the "View demo" button.
+- **Step 2: Real sign-up.** IT department signs up with a school email (Google,
+  Microsoft/Outlook, or plain email); teachers get access once IT signs the school up.
+  Needs: an auth library/service, a database, the "Security notes" checklist above.
