@@ -13,6 +13,69 @@ A running log of each step: what was built, decisions made, and what's next.
 
 ---
 
-## Step 1a: setup, landing page, sign-up & log-in UIs
+## Step 1a: setup, landing page, sign-up & log-in UIs (2026-11-20) ✅
 
-_In progress._
+### What was built
+- **Project setup:** Next.js 16 (App Router) + TypeScript + plain CSS, same layout as
+  al-zahra-library (`src/app`, `src/components`, `src/lib`).
+- **Landing page** (`/`): what the product is, "How it works", features, and buttons for
+  Sign up, Log in, and View demo (disabled, "coming soon").
+- **Sign-up page** (`/signup`): school name, IT admin name, school email, password,
+  plus "Continue with Google / Microsoft" buttons. Client-side validation: required
+  fields, email format, password length (12+), live strength meter + checklist.
+- **Log-in page** (`/login`): email + password, Google/Microsoft buttons.
+- **Theme:** every color is a CSS variable in `src/app/theme.css` (charcoal grays, warm
+  whites, school gold). **Filler logo** in `src/components/Logo.tsx`.
+
+### Decisions
+- **No `output: "export"`** (unlike al-zahra-library). Real log-in needs a server, and
+  Vercel runs Next.js natively.
+- **Plain CSS, no Tailwind:** fewer tools to learn; theme colors stay in one file.
+- **System fonts** (no web-font download): fast and nothing to load from third parties.
+- **Password rule = length first** (12+ chars), following NIST guidance; the
+  upper/lower/number checks are hints shown in the meter, not hard requirements.
+- **Google/Microsoft buttons** only show a "coming soon" message for now.
+- **Gold is a background color, not a text color** (gold text on white fails WCAG
+  contrast). Links use the darker `--gold-text`.
+- `themeColor` in `layout.tsx` is the one hex value outside theme.css: browser metadata
+  can't read CSS variables. Keep it in sync with `--charcoal`.
+
+### Security practices already in place
+- `.gitignore` blocks every `.env*` file (except `.env.example`), `*.pem`, `*.key`.
+- Password inputs are masked (`type="password"`), with a show/hide toggle.
+- Correct `autocomplete` values (`new-password`, `current-password`, `username`, `email`)
+  so password managers work, which leads people to use stronger, unique passwords.
+- Forms use `method="post"`: if JavaScript fails, the password still can't end up in the URL.
+- No `console.log` of form data; passwords are cleared from memory after submit.
+- **Nothing is stored or sent**: no database, cookies, or localStorage.
+- HTTP security headers in `next.config.ts`: `X-Frame-Options: DENY` (anti-clickjacking),
+  `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy`, and the
+  `X-Powered-By` header is removed.
+
+## Security notes: what real auth will need (Step 2)
+
+1. **Hashed passwords.** Never store a password itself. Store a slow, salted hash
+   (Argon2id or bcrypt) so a database leak doesn't reveal passwords. Prefer a proven
+   auth library or service over writing our own.
+2. **HTTPS everywhere.** Vercel provides HTTPS automatically; add the
+   `Strict-Transport-Security` (HSTS) header so browsers never fall back to HTTP.
+3. **Email verification.** Prove the IT admin really owns the school email (a
+   one-time, expiring link) before the school account becomes active.
+4. **Rate limiting.** Limit log-in, sign-up and password-reset attempts per IP/account
+   to stop password guessing (brute force) and spam sign-ups.
+5. **Server-side validation.** Re-check every field on the server; browser checks can be skipped.
+6. **Generic error messages.** "Email or password is incorrect", never "no such user"
+   (which leaks who has an account).
+7. **Secure sessions.** Session cookies set `HttpOnly`, `Secure`, `SameSite=Lax`; expire
+   them; and protect forms against CSRF.
+8. **OAuth done right** (Google/Microsoft). Use the provider's official flow with `state`/PKCE,
+   keep the client secret in Vercel environment variables (never in code), and only
+   accept school domains.
+9. **Breached-password check.** Reject passwords found in known leaks (e.g. Have I Been Pwned's
+   k-anonymity API).
+10. **Secrets** live in `.env.local` locally and in Vercel's Environment Variables in
+    production, never in GitHub.
+
+## What's next
+- **Step 1b: Demo.** Teacher view, ticket-submit simulator, FAQ, admin demo (fake data
+  only), and switch on the "View demo" button.
