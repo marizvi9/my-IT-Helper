@@ -55,6 +55,17 @@ main { flex: 1; }
 .site-header .logo-text { font-size: 1.3rem; }
 .site-header nav { display: flex; gap: 8px; }
 .site-header .btn-sm { font-size: 0.95rem; padding: 0.5em 1em; }
+/* Keep the logo name and buttons on one line each */
+.site-header .logo-text, .site-header .btn { white-space: nowrap; }
+/* Small phones: shrink the header a little so everything fits on one row */
+@media (max-width: 480px) {
+  .site-header .container { min-height: 64px; }
+  .site-header .logo svg { width: 34px; height: 34px; }
+  .site-header .logo { gap: 8px; }
+  .site-header .logo-text { font-size: 1.05rem; }
+  .site-header nav { gap: 6px; }
+  .site-header .btn-sm { font-size: 0.85rem; padding: 0.4em 0.7em; }
+}
 
 /* Footer: brand + links on top, copyright line underneath */
 .site-footer { background: var(--gray-100); border-top: 1px solid var(--gray-300); font-size: 0.9rem; color: var(--gray-500); }
@@ -268,11 +279,11 @@ main { flex: 1; }
 fieldset.field { border: 0; padding: 0; margin: 0 0 16px; min-width: 0; }
 fieldset.field legend { font-weight: 600; color: var(--charcoal); margin-bottom: 6px; padding: 0; }
 .radio-list { display: grid; gap: 8px; }
-.radio-option {
+.field .radio-option {
   display: flex; align-items: center; gap: 10px; padding: 10px 12px; cursor: pointer;
   background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius-sm);
 }
-.radio-option:has(input:checked) { border-color: var(--gold-dark); background: var(--gold-light); }
+.field .radio-option:has(input:checked) { border-color: var(--gold-dark); background: var(--gold-light); }
 .radio-option input { accent-color: var(--charcoal); width: 18px; height: 18px; margin: 0; }
 
 /* Submit page: form + suggestions side by side on wide screens */

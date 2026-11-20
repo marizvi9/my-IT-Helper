@@ -21,10 +21,7 @@ export default function HomePage() {
             <div className="cta-row">
               <Link href="/signup" className="btn btn-primary">Sign up your school</Link>
               <Link href="/login" className="btn btn-dark">Log in</Link>
-              {/* The demo is built in the next step, so this button is disabled for now. */}
-              <span className="btn btn-outline" aria-disabled="true" title="The demo is coming soon">
-                View demo <span className="soon">(coming soon)</span>
-              </span>
+              <Link href="/demo" className="btn btn-outline">View demo</Link>
             </div>
           </div>
 
