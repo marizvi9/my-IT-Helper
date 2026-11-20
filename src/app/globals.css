@@ -49,13 +49,31 @@ main { flex: 1; }
 .site-header { background: var(--charcoal); color: var(--white); border-bottom: 4px solid var(--gold); }
 .site-header .container {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 12px; min-height: 64px;
+  gap: 12px; min-height: 76px;
 }
 .site-header .home-link { color: var(--white); text-decoration: none; }
+.site-header .logo-text { font-size: 1.3rem; }
 .site-header nav { display: flex; gap: 8px; }
+.site-header .btn-sm { font-size: 0.95rem; padding: 0.5em 1em; }
 
+/* Footer: brand + links on top, copyright line underneath */
 .site-footer { background: var(--gray-100); border-top: 1px solid var(--gray-300); font-size: 0.9rem; color: var(--gray-500); }
-.site-footer .container { padding-top: 20px; padding-bottom: 20px; }
+.site-footer .logo-text { color: var(--charcoal); font-size: 1.05rem; }
+.footer-top {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 16px; padding-top: 24px; padding-bottom: 20px;
+}
+.footer-tagline { margin: 4px 0 0; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+.footer-links a { color: var(--gray-700); text-decoration: none; font-weight: 600; }
+.footer-links a:hover { color: var(--charcoal); text-decoration: underline; }
+.footer-bottom { border-top: 1px solid var(--gray-300); }
+.footer-bottom .container {
+  display: flex; flex-wrap: wrap; justify-content: space-between;
+  gap: 4px 16px; padding-top: 14px; padding-bottom: 14px; font-size: 0.85rem;
+}
+.footer-bottom p { margin: 0; }
+.footer-bottom strong { color: var(--charcoal); font-weight: 600; }
 
 /* ---------- Buttons ---------- */
 .btn {

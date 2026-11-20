@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="site-header">
           <div className="container">
             <Link href="/" className="home-link" aria-label="My IT Helper home">
-              <Logo />
+              <Logo size={44} />
             </Link>
             <nav aria-label="Account">
               <Link href="/login" className="btn btn-outline btn-sm">Log in</Link>
@@ -37,8 +37,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
 
         <footer className="site-footer">
-          <div className="container">
-            <p style={{ margin: 0 }}>© {new Date().getFullYear()} My IT Helper · Built for schools</p>
+          <div className="container footer-top">
+            <div>
+              <Logo size={28} />
+              <p className="footer-tagline">The IT help desk built for schools.</p>
+            </div>
+            <nav className="footer-links" aria-label="Footer">
+              <Link href="/demo">Demo</Link>
+              <Link href="/signup">Sign up</Link>
+              <Link href="/login">Log in</Link>
+            </nav>
+          </div>
+          <div className="footer-bottom">
+            <div className="container">
+              {/* The year is filled in when the site is built (each deploy). */}
+              <p>© {new Date().getFullYear()} My IT Helper. All rights reserved.</p>
+              <p>A project by <strong>Mahdi Rizvi</strong></p>
+            </div>
           </div>
         </footer>
       </body>
