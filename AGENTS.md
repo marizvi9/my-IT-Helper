@@ -11,6 +11,8 @@ cybersecurity fundamentals. Always:
 - Build **one step at a time** (see NOTES.md). Stop after each step and wait for
   the owner's confirmation before starting the next.
 - Do **not** build features from later steps early.
+- **Demo features must also be in the real product.** NOTES.md has a checklist
+  ("Demo features to carry over"). Keep it updated whenever the demo gains a feature.
 - Branch is `main`. **Commit small and often** with clear messages.
 - Update **NOTES.md** at the end of every step (what was done, decisions, what's next).
 

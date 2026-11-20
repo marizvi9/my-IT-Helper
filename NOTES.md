@@ -9,7 +9,8 @@ A running log of each step: what was built, decisions made, and what's next.
    - 1b: demo
 2. **Real sign up:** IT department signs up with a school email (Google, Microsoft/Outlook,
    or plain email); teachers get access once IT signs the school up
-3. **Real product:** ticket submission + FAQ for teachers
+3. **Real product:** ticket submission + FAQ for teachers. **Every demo feature must be
+   built into the real product too** (see "Demo features to carry over" below).
 
 ---
 
@@ -124,6 +125,33 @@ A running log of each step: what was built, decisions made, and what's next.
 - Code comments mark what the real product must do on the **server**: only send a
   teacher their own tickets, and check the IT-staff role before showing the admin view
   (**authorization**). Hiding things in the browser is not security.
+
+## Step 1b addition: time range filter (2026-11-20) ✅
+
+- Teacher and IT admin views have a **"Show solved tickets from"** picker
+  (7 days, 30 days, 3 months, 6 months, 12 months, all time).
+- **Defaults:** IT admin = last 30 days (they see the whole school); teachers = last
+  6 months (they only see their own few tickets, so a longer range stays short).
+- **Unsolved tickets always show, however old**, so nothing gets forgotten. The range
+  only hides *solved* tickets, based on their **last activity** (reply or status change).
+- A note says how many older solved tickets are hidden.
+- Logic lives in `src/lib/timeRange.ts` (not the demo folder) so the real product reuses it.
+- Sample tickets now have ages (today → over a year ago), including one old ticket that's
+  still open to show the "always show unsolved" rule.
+
+## Demo features to carry over into the real product
+
+The demo is a preview of the real thing. When building Steps 2–3, include all of these:
+
+- [ ] Teacher view: own tickets only (**filtered on the server**), open vs. solved, IT replies
+- [ ] Ticket form: category, summary, room, urgency, description, length limits, no-password reminder
+- [ ] Quick-fix FAQ suggestions for the chosen category on the ticket form
+- [ ] FAQ page with search + category filter
+- [ ] IT admin view: stats, status filters, urgent-first sorting, change status, reply
+- [ ] Replying to an open ticket moves it to "In progress"
+- [ ] **Time range filter** (admin default 30 days, teacher default 6 months, unsolved always
+      shown). In the real product the **server** applies the range when loading tickets.
+- [ ] Admin view protected by a **server-side role check** (authorization)
 
 ## What's next
 - **Step 2: Real sign-up.** IT department signs up with a school email (Google,
