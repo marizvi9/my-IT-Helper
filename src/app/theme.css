@@ -36,6 +36,10 @@
   --success-bg: #e7f6ec;
   --warning: #9a6700;
 
+  /* ---- Ticket status colors (demo + later the real product) ---- */
+  --info: #1e4f9c;            /* "In progress" text */
+  --info-bg: #e6eefb;         /* "In progress" background */
+
   /* ---- Focus ring (keyboard users must be able to see where they are) ---- */
   --focus: #1d4ed8;
 
