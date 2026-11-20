@@ -1,0 +1,57 @@
+/* =====================================================================
+   THEME: the school's colors, all in one place.
+   ---------------------------------------------------------------------
+   To match a real school's logo, change ONLY the values in this file.
+   Every page and component uses these variables (var(--name)), so nothing
+   else needs to change.
+
+   Current filler palette: charcoal grays + warm whites + school gold.
+
+   Accessibility tip: text must contrast with its background
+   (WCAG AA = ratio of at least 4.5:1). Gold is great as a BACKGROUND behind
+   dark text, but too light to use as text on white, which is why there's
+   a separate, darker "--gold-text" for links.
+   ===================================================================== */
+
+:root {
+  /* ---- Core school colors ---- */
+  --gold: #f2b705;            /* main school gold: buttons, highlights */
+  --gold-light: #fdf3d1;      /* soft gold tint: badges, callouts */
+  --gold-dark: #c99500;       /* hover state for gold buttons */
+  --gold-text: #8a6500;       /* gold dark enough to read as text on white */
+
+  --charcoal: #2b2f36;        /* main dark gray: header, headings, logo */
+  --charcoal-soft: #444a54;   /* hover state for dark buttons */
+  --gray-700: #4a515c;        /* body text */
+  --gray-500: #6b7280;        /* secondary / hint text */
+  --gray-300: #d1d5db;        /* borders */
+  --gray-100: #f1f2f4;        /* light gray section backgrounds */
+  --white: #ffffff;
+  --off-white: #fafaf7;       /* page background (a warm white) */
+
+  /* ---- Feedback colors (forms) ---- */
+  --error: #b42318;
+  --error-bg: #fdecea;
+  --success: #1e7b3c;
+  --success-bg: #e7f6ec;
+  --warning: #9a6700;
+
+  /* ---- Focus ring (keyboard users must be able to see where they are) ---- */
+  --focus: #1d4ed8;
+
+  /* ---- Third-party brand colors (keep as-is: required by Google/Microsoft brand rules) ---- */
+  --brand-google-blue: #4285f4;
+  --brand-google-green: #34a853;
+  --brand-google-yellow: #fbbc05;
+  --brand-google-red: #ea4335;
+  --brand-ms-red: #f25022;
+  --brand-ms-green: #7fba00;
+  --brand-ms-blue: #00a4ef;
+  --brand-ms-yellow: #ffb900;
+
+  /* ---- Shape & spacing ---- */
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 4px 16px rgb(0 0 0 / 0.06);
+  --max-width: 1080px;
+}
