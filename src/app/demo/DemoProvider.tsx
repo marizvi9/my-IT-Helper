@@ -31,17 +31,19 @@ export function DemoProvider({ children }: { children: React.ReactNode }) {
   function addTicket(input: NewTicket): Ticket {
     // Next ticket number = highest existing number + 1
     const id = Math.max(...tickets.map((t) => t.id)) + 1;
-    const ticket: Ticket = { ...input, id, status: "open", when: "Just now", replies: [] };
+    // The browser's current time of day, e.g. "9:41 AM"
+    const time = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const ticket: Ticket = { ...input, id, status: "open", ageDays: 0, time, activityDays: 0, replies: [] };
     setTickets([ticket, ...tickets]); // newest first
     return ticket;
   }
 
   function setStatus(id: number, status: Status) {
-    setTickets((all) => all.map((t) => (t.id === id ? { ...t, status } : t)));
+    setTickets((all) => all.map((t) => (t.id === id ? { ...t, status, activityDays: 0 } : t)));
   }
 
   function addReply(id: number, reply: Reply) {
-    setTickets((all) => all.map((t) => (t.id === id ? { ...t, replies: [...t.replies, reply] } : t)));
+    setTickets((all) => all.map((t) => (t.id === id ? { ...t, replies: [...t.replies, reply], activityDays: 0 } : t)));
   }
 
   // In React 19 a context can be used directly as its own provider: <DemoContext value={...}>

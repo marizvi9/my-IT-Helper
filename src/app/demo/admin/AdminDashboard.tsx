@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { DEMO_ADMIN, STATUS_LABELS, type Status, type Ticket } from "@/lib/demoData";
+import { ADMIN_DEFAULT_RANGE, isVisibleInRange, rangeLabel, type RangeDays } from "@/lib/timeRange";
 import { useDemo } from "../DemoProvider";
-import { TicketCard } from "../DemoBits";
+import { RangeSelect, TicketCard } from "../DemoBits";
 
 // The IT department's view of every ticket in the school.
 //
@@ -15,12 +16,19 @@ type Filter = Status | "all";
 const REPLY_MAX = 1000;
 
 export default function AdminDashboard() {
-  const { tickets } = useDemo();
+  const { tickets: allTickets } = useDemo();
   const [filter, setFilter] = useState<Filter>("all");
+  // IT sees the whole school, so the default range is short (last 30 days).
+  const [range, setRange] = useState<RangeDays>(ADMIN_DEFAULT_RANGE);
+
+  // Step 1: apply the time range (unsolved tickets always stay).
+  const tickets = allTickets.filter((t) => isVisibleInRange(t, range));
+  const hidden = allTickets.length - tickets.length;
 
   const count = (s: Status) => tickets.filter((t) => t.status === s).length;
   const urgentOpen = tickets.filter((t) => t.urgency === "high" && t.status !== "solved").length;
 
+  // Step 2: apply the status filter chips.
   const shown = filter === "all" ? tickets : tickets.filter((t) => t.status === filter);
   // Urgent, unsolved tickets go to the top; otherwise newest (highest number) first.
   const sorted = [...shown].sort((a, b) => {
@@ -48,17 +56,24 @@ export default function AdminDashboard() {
       <div className="stats">
         <div className="stat stat-accent"><span className="stat-num">{count("open")}</span><span className="stat-label">Open</span></div>
         <div className="stat"><span className="stat-num">{count("in-progress")}</span><span className="stat-label">In progress</span></div>
-        <div className="stat"><span className="stat-num">{count("solved")}</span><span className="stat-label">Solved</span></div>
+        <div className="stat"><span className="stat-num">{count("solved")}</span><span className="stat-label">Solved · {rangeLabel(range).toLowerCase()}</span></div>
         <div className="stat"><span className="stat-num">{urgentOpen}</span><span className="stat-label">Urgent &amp; unsolved</span></div>
       </div>
 
-      <div className="chips" role="group" aria-label="Filter tickets by status" style={{ marginBottom: 16 }}>
-        {filters.map((f) => (
-          <button key={f.id} type="button" className="chip" aria-pressed={filter === f.id} onClick={() => setFilter(f.id)}>
-            {f.label} ({f.n})
-          </button>
-        ))}
+      <div className="section-head">
+        <div className="chips" role="group" aria-label="Filter tickets by status">
+          {filters.map((f) => (
+            <button key={f.id} type="button" className="chip" aria-pressed={filter === f.id} onClick={() => setFilter(f.id)}>
+              {f.label} ({f.n})
+            </button>
+          ))}
+        </div>
+        <RangeSelect id="admin-range" value={range} onChange={setRange} />
       </div>
+      <p className="hint" style={{ marginTop: 0, marginBottom: 12 }}>
+        Unsolved tickets always show, however old.
+        {hidden > 0 && <> {hidden} older solved {hidden === 1 ? "ticket is" : "tickets are"} hidden.</>}
+      </p>
 
       {sorted.length === 0 ? (
         <p className="empty">No tickets here.</p>

@@ -55,7 +55,9 @@ export type Ticket = {
   description: string;
   status: Status;
   teacher: string;
-  when: string; // when it was submitted (display label)
+  ageDays: number;      // how many days ago it was submitted (0 = today)
+  time: string;         // time of day it was submitted, e.g. "8:05 AM"
+  activityDays: number; // days since the last change (a reply or status update)
   replies: Reply[];
 };
 
@@ -68,81 +70,86 @@ export const DEMO_ADMIN = { name: "Mr. Okafor", role: "IT Coordinator" };
 
 export const SAMPLE_TICKETS: Ticket[] = [
   {
-    id: 1042,
-    title: "Projector won't turn on",
-    category: "display",
-    room: "214",
-    urgency: "high",
+    id: 1042, title: "Projector won't turn on", category: "display", room: "214", urgency: "high",
     description: "The projector in my classroom shows no picture. The power light blinks orange. I have 3rd period at 10:15.",
-    status: "in-progress",
-    teacher: "Ms. Rivera",
-    when: "Today, 8:05 AM",
+    status: "in-progress", teacher: "Ms. Rivera", ageDays: 0, time: "8:05 AM", activityDays: 0,
     replies: [
       { from: "it", author: "Mr. Okafor", text: "On my way with a spare lamp. Should be fixed before 10.", when: "Today, 8:20 AM" },
     ],
   },
   {
-    id: 1041,
-    title: "Can't log in to the gradebook",
-    category: "account",
-    room: "108",
-    urgency: "normal",
+    id: 1041, title: "Can't log in to the gradebook", category: "account", room: "108", urgency: "normal",
     description: "It says my password expired. I tried resetting but never got the email.",
-    status: "open",
-    teacher: "Mr. Chen",
-    when: "Today, 7:48 AM",
-    replies: [],
+    status: "open", teacher: "Mr. Chen", ageDays: 0, time: "7:48 AM", activityDays: 0, replies: [],
   },
   {
-    id: 1039,
-    title: "Wi-Fi keeps dropping in the library",
-    category: "wifi",
-    room: "Library",
-    urgency: "normal",
+    id: 1039, title: "Wi-Fi keeps dropping in the library", category: "wifi", room: "Library", urgency: "normal",
     description: "Student Chromebooks disconnect every few minutes, mostly near the back tables.",
-    status: "open",
-    teacher: "Mrs. Patel",
-    when: "Yesterday, 1:30 PM",
-    replies: [],
+    status: "open", teacher: "Mrs. Patel", ageDays: 1, time: "1:30 PM", activityDays: 1, replies: [],
   },
   {
-    id: 1036,
-    title: "Printer is jamming",
-    category: "printer",
-    room: "Workroom",
-    urgency: "low",
+    id: 1036, title: "Printer is jamming", category: "printer", room: "Workroom", urgency: "low",
     description: "The workroom printer jams on every double-sided print job.",
-    status: "open",
-    teacher: "Ms. Rivera",
-    when: "Yesterday, 9:12 AM",
-    replies: [],
+    status: "open", teacher: "Ms. Rivera", ageDays: 1, time: "9:12 AM", activityDays: 1, replies: [],
   },
   {
-    id: 1033,
-    title: "Need the science simulation app installed",
-    category: "software",
-    room: "214",
-    urgency: "low",
+    id: 1033, title: "Need the science simulation app installed", category: "software", room: "214", urgency: "low",
     description: "Could the physics simulation app be installed on the cart of 30 laptops before next week's unit?",
-    status: "solved",
-    teacher: "Ms. Rivera",
-    when: "Mon, 3:40 PM",
+    status: "solved", teacher: "Ms. Rivera", ageDays: 3, time: "3:40 PM", activityDays: 2,
     replies: [
-      { from: "it", author: "Mr. Okafor", text: "Installed on all 30 laptops in cart B. Let me know if any are missing it.", when: "Tue, 11:02 AM" },
-      { from: "teacher", author: "Ms. Rivera", text: "Works great, thank you!", when: "Tue, 1:15 PM" },
+      { from: "it", author: "Mr. Okafor", text: "Installed on all 30 laptops in cart B. Let me know if any are missing it.", when: "2 days ago" },
+      { from: "teacher", author: "Ms. Rivera", text: "Works great, thank you!", when: "2 days ago" },
     ],
   },
   {
-    id: 1030,
-    title: "Laptop battery won't charge",
-    category: "computer",
-    room: "302",
-    urgency: "normal",
+    id: 1030, title: "Laptop battery won't charge", category: "computer", room: "302", urgency: "normal",
     description: "My teacher laptop shows 'plugged in, not charging'. I tried another charger.",
-    status: "solved",
-    teacher: "Mr. Davis",
-    when: "Last week",
-    replies: [{ from: "it", author: "Mr. Okafor", text: "Swapped the battery. You're all set.", when: "Last week" }],
+    status: "solved", teacher: "Mr. Davis", ageDays: 8, time: "10:30 AM", activityDays: 7,
+    replies: [{ from: "it", author: "Mr. Okafor", text: "Swapped the battery. You're all set.", when: "1 week ago" }],
+  },
+  {
+    // An OLD ticket that's still open: it shows no matter which time range is picked.
+    id: 1015, title: "Gym sound system needs repair", category: "other", room: "Gym", urgency: "low",
+    description: "The left speaker in the gym cuts out during assemblies. Not urgent, but needed before graduation.",
+    status: "open", teacher: "Mrs. Patel", ageDays: 95, time: "2:15 PM", activityDays: 60,
+    replies: [{ from: "it", author: "Mr. Okafor", text: "Replacement part is on order.", when: "2 months ago" }],
+  },
+  // ---- Older solved tickets (hidden by shorter time ranges) ----
+  {
+    id: 1024, title: "Document camera is blurry", category: "display", room: "214", urgency: "normal",
+    description: "The document camera image is blurry even after pressing auto-focus.",
+    status: "solved", teacher: "Ms. Rivera", ageDays: 40, time: "11:05 AM", activityDays: 38,
+    replies: [{ from: "it", author: "Mr. Okafor", text: "Cleaned the lens and updated the driver. Looks sharp now.", when: "1 month ago" }],
+  },
+  {
+    id: 1018, title: "School email not syncing on phone", category: "account", room: "108", urgency: "low",
+    description: "My school email stopped showing new messages on my phone.",
+    status: "solved", teacher: "Mr. Chen", ageDays: 75, time: "4:20 PM", activityDays: 74,
+    replies: [{ from: "it", author: "Mr. Okafor", text: "Removed and re-added the account. Syncing again.", when: "2 months ago" }],
+  },
+  {
+    id: 1011, title: "Classroom speaker crackling", category: "other", room: "214", urgency: "low",
+    description: "The ceiling speaker crackles whenever I play videos.",
+    status: "solved", teacher: "Ms. Rivera", ageDays: 130, time: "9:40 AM", activityDays: 126,
+    replies: [{ from: "it", author: "Mr. Okafor", text: "Replaced a loose cable in the ceiling.", when: "4 months ago" }],
+  },
+  {
+    id: 1005, title: "Library barcode scanner offline", category: "computer", room: "Library", urgency: "normal",
+    description: "The checkout scanner isn't reading barcodes.",
+    status: "solved", teacher: "Mrs. Patel", ageDays: 210, time: "8:30 AM", activityDays: 205,
+    replies: [{ from: "it", author: "Mr. Okafor", text: "New USB cable fixed it.", when: "6 months ago" }],
+  },
+  {
+    id: 998, title: "New laptop setup", category: "computer", room: "214", urgency: "normal",
+    description: "I received a new laptop and need my apps and printers set up.",
+    status: "solved", teacher: "Ms. Rivera", ageDays: 300, time: "1:00 PM", activityDays: 299,
+    replies: [{ from: "it", author: "Mr. Okafor", text: "All set up and ready to go.", when: "9 months ago" }],
+  },
+  {
+    id: 985, title: "Projector bulb replacement", category: "display", room: "302", urgency: "normal",
+    description: "The projector warns that the bulb is near the end of its life.",
+    status: "solved", teacher: "Mr. Davis", ageDays: 420, time: "10:10 AM", activityDays: 415,
+    replies: [{ from: "it", author: "Mr. Okafor", text: "Bulb replaced.", when: "1 year ago" }],
   },
 ];
 

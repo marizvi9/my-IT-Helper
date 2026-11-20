@@ -1,12 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { DEMO_TEACHER } from "@/lib/demoData";
+import { isVisibleInRange, rangeLabel, TEACHER_DEFAULT_RANGE, type RangeDays } from "@/lib/timeRange";
 import { useDemo } from "../DemoProvider";
-import { TicketCard } from "../DemoBits";
+import { RangeSelect, TicketCard } from "../DemoBits";
 
 export default function TeacherDashboard() {
   const { tickets } = useDemo();
+  // Teachers get a longer default range than IT admins (see src/lib/timeRange.ts).
+  const [range, setRange] = useState<RangeDays>(TEACHER_DEFAULT_RANGE);
 
   // A teacher only sees THEIR OWN tickets.
   // SECURITY (later): in the real product the SERVER must do this filtering, only
@@ -14,7 +18,9 @@ export default function TeacherDashboard() {
   // because anyone can inspect what the server sends.
   const mine = tickets.filter((t) => t.teacher === DEMO_TEACHER.name);
   const active = mine.filter((t) => t.status !== "solved");
-  const solved = mine.filter((t) => t.status === "solved");
+  const allSolved = mine.filter((t) => t.status === "solved");
+  const solved = allSolved.filter((t) => isVisibleInRange(t, range));
+  const hidden = allSolved.length - solved.length;
 
   return (
     <>
@@ -38,9 +44,17 @@ export default function TeacherDashboard() {
         </ul>
       )}
 
-      <h2 style={{ marginTop: 32 }}>Solved ({solved.length})</h2>
+      <div className="section-head">
+        <h2>Solved ({solved.length})</h2>
+        <RangeSelect id="teacher-range" value={range} onChange={setRange} />
+      </div>
+      {hidden > 0 && (
+        <p className="hint" style={{ marginTop: 0 }}>
+          {hidden} older solved {hidden === 1 ? "ticket is" : "tickets are"} hidden. Pick a longer time range to see {hidden === 1 ? "it" : "them"}.
+        </p>
+      )}
       {solved.length === 0 ? (
-        <p className="empty">Nothing solved yet.</p>
+        <p className="empty">No solved tickets in the {rangeLabel(range).toLowerCase()}.</p>
       ) : (
         <ul className="ticket-list">
           {solved.map((t) => <TicketCard key={t.id} ticket={t} />)}

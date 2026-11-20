@@ -6,6 +6,7 @@
 // This blocks Cross-Site Scripting (XSS). We never use dangerouslySetInnerHTML.
 
 import { categoryLabel, STATUS_LABELS, type Faq, type Status, type Ticket } from "@/lib/demoData";
+import { ageLabel, TIME_RANGES, type RangeDays } from "@/lib/timeRange";
 
 export function StatusBadge({ status }: { status: Status }) {
   return <span className={`status status-${status}`}>{STATUS_LABELS[status]}</span>;
@@ -32,7 +33,7 @@ export function TicketCard({
             <span>{categoryLabel(ticket.category)}</span>
             <span>Room {ticket.room}</span>
             {showTeacher && <span>{ticket.teacher}</span>}
-            <span>{ticket.when}</span>
+            <span>{ageLabel(ticket.ageDays, ticket.time)}</span>
             {ticket.urgency === "high" && <span className="urgency-high">High urgency</span>}
             {ticket.replies.length > 0 && (
               <span>{ticket.replies.length} {ticket.replies.length === 1 ? "reply" : "replies"}</span>
@@ -81,5 +82,28 @@ export function FaqItem({ faq, showCategory = false }: { faq: Faq; showCategory?
         </ol>
       </details>
     </li>
+  );
+}
+
+/**
+ * Dropdown to pick how far back solved tickets are shown.
+ * <select> values must be strings, so "All time" (null) is stored as "all".
+ */
+export function RangeSelect({
+  id, value, onChange,
+}: { id: string; value: RangeDays; onChange: (range: RangeDays) => void }) {
+  return (
+    <div className="field range-select">
+      <label htmlFor={id}>Show solved tickets from</label>
+      <select
+        id={id}
+        value={value === null ? "all" : String(value)}
+        onChange={(e) => onChange(e.target.value === "all" ? null : Number(e.target.value))}
+      >
+        {TIME_RANGES.map((r) => (
+          <option key={r.label} value={r.days === null ? "all" : String(r.days)}>{r.label}</option>
+        ))}
+      </select>
+    </div>
   );
 }

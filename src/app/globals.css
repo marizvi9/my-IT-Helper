@@ -319,3 +319,14 @@ fieldset.field legend { font-weight: 600; color: var(--charcoal); margin-bottom:
 .stat-accent { border-left: 5px solid var(--gold); }
 .admin-actions { display: grid; gap: 12px; margin-top: 16px; }
 @media (min-width: 600px) { .admin-actions { grid-template-columns: 200px 1fr; align-items: start; } }
+
+/* Heading (or filter chips) with the time-range picker beside it */
+.section-head {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end;
+  gap: 12px; margin: 32px 0 8px;
+}
+.section-head h2 { margin: 0; }
+.stats + .section-head { margin-top: 0; }
+.range-select { margin: 0; display: flex; align-items: center; gap: 8px; }
+.range-select label { margin: 0; font-size: 0.9rem; white-space: nowrap; }
+.range-select select { width: auto; padding: 0.45em 0.6em; font-size: 0.9rem; }
