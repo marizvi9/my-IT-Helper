@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Log in" };
 
 export default function LoginPage() {
   return (
-    <section className="auth-page">
+    <section className="auth-page notebook">
       <div className="container">
         <div className="auth-card">
           <h1>Welcome back</h1>

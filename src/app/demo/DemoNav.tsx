@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -14,9 +15,19 @@ const LINKS = [
 
 export default function DemoNav() {
   const pathname = usePathname(); // the current URL path, e.g. "/demo/faq"
+  const navRef = useRef<HTMLElement>(null);
+
+  // On narrow phones the tabs scroll sideways. Scroll the strip so the current tab is visible.
+  useEffect(() => {
+    const strip = navRef.current?.querySelector<HTMLElement>(".container");
+    const active = navRef.current?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (strip && active) {
+      strip.scrollTo({ left: active.offsetLeft - strip.offsetLeft - 16, behavior: "smooth" });
+    }
+  }, [pathname]);
 
   return (
-    <nav className="demo-nav" aria-label="Demo sections">
+    <nav ref={navRef} className="demo-nav" aria-label="Demo sections">
       <div className="container">
         {LINKS.map((link) => (
           <Link

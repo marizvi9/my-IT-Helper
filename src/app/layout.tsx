@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import Logo from "@/components/Logo";
+import { bodyFont, handFont, headingFont } from "./fonts";
 import "./theme.css";   // school colors (load first so globals.css can use them)
 import "./globals.css"; // shared styles
 
@@ -20,7 +21,8 @@ export const viewport: Viewport = {
 // The layout wraps EVERY page: header on top, the page in the middle, footer at the bottom.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    // The font classes create CSS variables (--font-heading, --font-body, --font-hand)
+    <html lang="en" className={`${headingFont.variable} ${bodyFont.variable} ${handFont.variable}`}>
       <body>
         <header className="site-header">
           <div className="container">
@@ -32,6 +34,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/signup" className="btn btn-primary btn-sm">Sign up</Link>
             </nav>
           </div>
+          {/* Decorative gold ruler along the bottom of the header (drawn in CSS) */}
+          <div className="ruler" aria-hidden="true" />
         </header>
 
         <main>{children}</main>

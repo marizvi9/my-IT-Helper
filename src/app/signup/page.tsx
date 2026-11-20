@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Sign up your school" };
 
 export default function SignupPage() {
   return (
-    <section className="auth-page">
+    <section className="auth-page notebook">
       <div className="container">
         <div className="auth-card">
           <h1>Sign up your school</h1>

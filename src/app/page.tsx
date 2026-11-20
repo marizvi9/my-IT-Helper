@@ -1,17 +1,36 @@
 import Link from "next/link";
+import {
+  CheckCircleIcon, ClipboardIcon, KeyIcon, PaletteIcon, PencilDoodle, PlaneIcon,
+  SchoolIcon, SmileIcon, StarDoodle,
+} from "@/components/Icons";
 
 // LANDING PAGE ("/"): explains the product and points people to sign up, log in, or the demo.
 // This is a Server Component (the default): it has no interactivity, so it sends no JavaScript.
+
+const STEPS = [
+  { icon: SchoolIcon, tone: "yellow", title: "IT signs up the school", text: "Your IT department creates the school's account using a school email." },
+  { icon: PlaneIcon, tone: "blue", title: "Teachers send tickets", text: "Teachers describe the problem in a few clicks and check the FAQ for quick fixes." },
+  { icon: CheckCircleIcon, tone: "green", title: "IT tracks & solves", text: "IT sees every request in one place, sorted and ready to work on." },
+];
+
+const FEATURES = [
+  { icon: SmileIcon, tone: "pink", title: "Simple for teachers", text: "No tech jargon. Pick what's wrong, add a note, and you're done." },
+  { icon: ClipboardIcon, tone: "blue", title: "Organized for IT", text: "Every request is tracked from “open” to “solved”, so nothing slips through." },
+  { icon: PaletteIcon, tone: "yellow", title: "Your school's colors", text: "The site uses your school's colors so it feels like part of your campus." },
+  { icon: KeyIcon, tone: "green", title: "Sign in with school accounts", text: "Use Google or Microsoft school accounts, or a regular email and password." },
+];
 
 export default function HomePage() {
   return (
     <>
       {/* ---------- Hero: the first thing visitors see ---------- */}
-      <section className="hero">
-        <div className="container">
-          <div>
-            <span className="eyebrow">IT help desk for schools</span>
-            <h1>Tech trouble? Teachers ask. IT fixes it.</h1>
+      <section className="hero notebook">
+        <div className="container hero-grid">
+          <div className="hero-copy">
+            <span className="eyebrow"><SchoolIcon size={16} /> IT help desk for schools</span>
+            <h1>
+              Tech trouble? Teachers ask. <span className="highlight">IT fixes it.</span>
+            </h1>
             <p className="hero-lead">
               My IT Helper gives every teacher a simple way to report a broken projector, a
               forgotten password, or a laptop that won&apos;t connect, and gives your IT team one
@@ -19,24 +38,40 @@ export default function HomePage() {
             </p>
 
             <div className="cta-row">
-              <Link href="/signup" className="btn btn-primary">Sign up your school</Link>
-              <Link href="/login" className="btn btn-dark">Log in</Link>
-              <Link href="/demo" className="btn btn-outline">View demo</Link>
+              <Link href="/signup" className="btn btn-primary btn-lg">Sign up your school</Link>
+              <Link href="/demo" className="btn btn-dark btn-lg">View demo</Link>
+              <Link href="/login" className="btn btn-outline btn-lg">Log in</Link>
             </div>
+            <p className="hand-note">psst… take the demo for a spin first!</p>
           </div>
 
-          {/* A sample ticket, just to show what the product is about */}
-          <div className="ticket-card" aria-label="Example help ticket">
-            <div className="ticket-top">
-              <span>Ticket #1042 · Room 214</span>
-              <span className="status status-open">Open</span>
+          {/* Decorative sticky-note tickets that show what the product is about */}
+          <div className="hero-art" role="img" aria-label="Two example help tickets on sticky notes">
+            <div className="note note-back" aria-hidden="true">
+              <div className="note-top">
+                <span>Ticket #1033</span>
+                <span className="status status-solved">Solved</span>
+              </div>
+              <p className="note-title">Science app installed</p>
+              <p className="note-hand">Works great, thank you!! ★</p>
             </div>
-            <p className="ticket-title">Projector won&apos;t turn on</p>
-            <p style={{ margin: 0, fontSize: "0.95rem" }}>
-              &ldquo;The projector in my classroom shows no picture. I have 3rd period at 10:15.&rdquo;
-              <br />
-              <span style={{ color: "var(--gray-500)" }}>Ms. Rivera, Science</span>
-            </p>
+
+            <div className="note note-front" aria-hidden="true">
+              <span className="tape" />
+              <div className="note-top">
+                <span>Ticket #1042 · Room 214</span>
+                <span className="status status-open">Open</span>
+              </div>
+              <p className="note-title">Projector won&apos;t turn on</p>
+              <p className="note-text">
+                &ldquo;No picture, and the power light blinks orange. I have 3rd period at 10:15.&rdquo;
+              </p>
+              <p className="note-from">Ms. Rivera · Science</p>
+            </div>
+
+            <PencilDoodle className="doodle doodle-pencil" size={46} />
+            <StarDoodle className="doodle doodle-star" size={30} />
+            <PlaneIcon className="doodle doodle-plane" size={36} />
           </div>
         </div>
       </section>
@@ -44,23 +79,21 @@ export default function HomePage() {
       {/* ---------- How it works ---------- */}
       <section className="section section-alt">
         <div className="container">
-          <h2>How it works</h2>
+          <div className="section-title">
+            <p className="kicker">it&apos;s as easy as 1, 2, 3</p>
+            <h2>How it works</h2>
+          </div>
           <ol className="steps">
-            <li className="card">
-              <span className="step-num">1</span>
-              <h3>IT signs up the school</h3>
-              <p>Your IT department creates the school&apos;s account using a school email.</p>
-            </li>
-            <li className="card">
-              <span className="step-num">2</span>
-              <h3>Teachers submit tickets</h3>
-              <p>Teachers describe the problem in a few clicks and check the FAQ for quick fixes.</p>
-            </li>
-            <li className="card">
-              <span className="step-num">3</span>
-              <h3>IT tracks &amp; solves</h3>
-              <p>IT sees every request in one place, sorted and ready to work on.</p>
-            </li>
+            {STEPS.map((step, i) => (
+              <li key={step.title} className="card card-hover">
+                <div className="card-icon-row">
+                  <span className={`icon-bubble tone-${step.tone}`}><step.icon /></span>
+                  <span className="step-num">{i + 1}</span>
+                </div>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </li>
+            ))}
           </ol>
         </div>
       </section>
@@ -68,25 +101,35 @@ export default function HomePage() {
       {/* ---------- Features ---------- */}
       <section className="section">
         <div className="container">
-          <h2>Made for busy classrooms</h2>
+          <div className="section-title">
+            <p className="kicker">teachers & IT both win</p>
+            <h2>Made for busy classrooms</h2>
+          </div>
           <ul className="features">
-            <li className="card">
-              <h3>Simple for teachers</h3>
-              <p>No tech jargon. Pick what&apos;s wrong, add a note, and you&apos;re done.</p>
-            </li>
-            <li className="card">
-              <h3>Organized for IT</h3>
-              <p>Every request is tracked from &ldquo;open&rdquo; to &ldquo;solved&rdquo;, so nothing slips through.</p>
-            </li>
-            <li className="card">
-              <h3>Your school&apos;s look</h3>
-              <p>The site uses your school&apos;s colors so it feels like part of your campus.</p>
-            </li>
-            <li className="card">
-              <h3>Sign in with school accounts</h3>
-              <p>Use Google or Microsoft school accounts, or a regular email and password.</p>
-            </li>
+            {FEATURES.map((f) => (
+              <li key={f.title} className="card card-hover feature">
+                <span className={`icon-bubble tone-${f.tone}`}><f.icon /></span>
+                <div>
+                  <h3>{f.title}</h3>
+                  <p>{f.text}</p>
+                </div>
+              </li>
+            ))}
           </ul>
+        </div>
+      </section>
+
+      {/* ---------- Chalkboard call-to-action ---------- */}
+      <section className="section section-tight">
+        <div className="container">
+          <div className="chalkboard">
+            <h2>Ready to make tech help easy?</h2>
+            <p>Sign up your school, or take the demo for a spin first.</p>
+            <div className="cta-row cta-center">
+              <Link href="/signup" className="btn btn-primary btn-lg">Sign up your school</Link>
+              <Link href="/demo" className="btn btn-chalk btn-lg">View demo</Link>
+            </div>
+          </div>
         </div>
       </section>
     </>
