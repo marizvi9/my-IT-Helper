@@ -139,6 +139,33 @@ A running log of each step: what was built, decisions made, and what's next.
 - Sample tickets now have ages (today → over a year ago), including one old ticket that's
   still open to show the "always show unsolved" rule.
 
+## Design refresh: "polished modern + warm & friendly, fun school theme" (2026-11-20) ✅
+
+Step 2 is on hold while we improve the look. Covered the whole site.
+
+### What changed
+- **Fonts** (`src/app/fonts.ts`): Fredoka (rounded headings), Nunito (body),
+  Caveat (handwritten notes). Loaded with `next/font`, which **self-hosts** them: visitors'
+  browsers never contact Google (privacy).
+- **School touches:** gold **ruler** under the header, **notebook-paper** backgrounds
+  (landing hero, sign-up, log-in), **highlighter** on "IT fixes it.", **sticky-note**
+  tickets with tape, doodles (pencil, star, paper plane), a **chalkboard** call-to-action
+  with a gold frame, handwritten "kicker" lines above section titles.
+- **Polish:** chunky "pressable" pill buttons, rounder cards with warm shadows and a
+  hover lift, icon bubbles on step/feature cards (`src/components/Icons.tsx`), pill-shaped
+  demo tabs, sticky-note-style replies, nicer form fields and focus rings.
+- **Logo:** gold tile with a tilted charcoal ticket + check; "IT" in gold in the name.
+- **Animations:** hero text floats up, notes drop in, pencil wiggles. All animations and
+  transitions are **turned off for `prefers-reduced-motion`** (accessibility).
+- **Theme** (`theme.css`): warmer cream/gray tones plus decorative school-supply accents
+  (notebook blue, eraser pink, chalkboard). Still the only place colors are defined.
+
+### Decisions
+- Gold stays a background color; gold *text* only on dark backgrounds (header logo) or
+  as the darker `--gold-text`, to keep WCAG contrast.
+- Decorative art is `aria-hidden`, with one text label (`role="img"`) for screen readers.
+- Everything from the demo and time-range work kept working (re-ran the browser tests).
+
 ## Demo features to carry over into the real product
 
 The demo is a preview of the real thing. When building Steps 2–3, include all of these:
