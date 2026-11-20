@@ -5,7 +5,9 @@
    Every page and component uses these variables (var(--name)), so nothing
    else needs to change.
 
-   Current filler palette: charcoal grays + warm whites + school gold.
+   Current filler palette: charcoal grays + warm whites + school gold,
+   plus a few soft "school supply" accents (notebook blue, eraser pink,
+   chalkboard) used only for decoration.
 
    Accessibility tip: text must contrast with its background
    (WCAG AA = ratio of at least 4.5:1). Gold is great as a BACKGROUND behind
@@ -15,30 +17,41 @@
 
 :root {
   /* ---- Core school colors ---- */
-  --gold: #f2b705;            /* main school gold: buttons, highlights */
-  --gold-light: #fdf3d1;      /* soft gold tint: badges, callouts */
-  --gold-dark: #c99500;       /* hover state for gold buttons */
-  --gold-text: #8a6500;       /* gold dark enough to read as text on white */
+  --gold: #f5b700;            /* main school gold: buttons, highlights */
+  --gold-light: #fff3cc;      /* soft gold tint: badges, sticky notes */
+  --gold-lighter: #fffaeb;    /* very soft gold: backgrounds */
+  --gold-dark: #d29a00;       /* hover state + the "3D" edge under gold buttons */
+  --gold-text: #8a6200;       /* gold dark enough to read as text on white */
 
   --charcoal: #2b2f36;        /* main dark gray: header, headings, logo */
-  --charcoal-soft: #444a54;   /* hover state for dark buttons */
+  --charcoal-soft: #3d434d;   /* hover state for dark buttons */
+  --charcoal-deep: #16191e;   /* the "3D" edge under dark buttons */
   --gray-700: #4a515c;        /* body text */
   --gray-500: #6b7280;        /* secondary / hint text */
-  --gray-300: #d1d5db;        /* borders */
-  --gray-100: #f1f2f4;        /* light gray section backgrounds */
+  --gray-300: #e2ddd2;        /* borders (warm gray) */
+  --gray-100: #f5f1e8;        /* light warm-gray section backgrounds */
   --white: #ffffff;
-  --off-white: #fafaf7;       /* page background (a warm white) */
+  --cream: #fffcf5;           /* page background (warm, like paper) */
+
+  /* ---- School-supply accents (decoration only, never for text) ---- */
+  --notebook-line: #dfe9f5;   /* blue lines on notebook paper */
+  --notebook-margin: #f6c3b7; /* the pink margin line on notebook paper */
+  --sticky-blue: #e3effc;     /* a second sticky-note color */
+  --eraser-pink: #fde6df;     /* icon bubble background */
+  --chalkboard: #2f3a36;      /* chalkboard section background */
+  --chalk: #f4f1e8;           /* "chalk" text on the chalkboard */
+  --ruler-tick: rgb(43 47 54 / 0.55); /* tick marks on the gold ruler under the header */
 
   /* ---- Feedback colors (forms) ---- */
   --error: #b42318;
   --error-bg: #fdecea;
   --success: #1e7b3c;
-  --success-bg: #e7f6ec;
+  --success-bg: #e5f5ea;
   --warning: #9a6700;
 
-  /* ---- Ticket status colors (demo + later the real product) ---- */
+  /* ---- Ticket status colors ---- */
   --info: #1e4f9c;            /* "In progress" text */
-  --info-bg: #e6eefb;         /* "In progress" background */
+  --info-bg: #e3edfb;         /* "In progress" background */
 
   /* ---- Focus ring (keyboard users must be able to see where they are) ---- */
   --focus: #1d4ed8;
@@ -53,9 +66,13 @@
   --brand-ms-blue: #00a4ef;
   --brand-ms-yellow: #ffb900;
 
-  /* ---- Shape & spacing ---- */
-  --radius: 10px;
-  --radius-sm: 6px;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 4px 16px rgb(0 0 0 / 0.06);
-  --max-width: 1080px;
+  /* ---- Shape, shadows & spacing ---- */
+  --radius-lg: 24px;
+  --radius: 16px;
+  --radius-sm: 10px;
+  /* Shadows are tinted with charcoal (not pure black) so they feel warmer */
+  --shadow-sm: 0 1px 2px rgb(43 47 54 / 0.06), 0 2px 6px rgb(43 47 54 / 0.05);
+  --shadow: 0 2px 4px rgb(43 47 54 / 0.05), 0 8px 24px rgb(43 47 54 / 0.08);
+  --shadow-lg: 0 4px 8px rgb(43 47 54 / 0.06), 0 18px 40px rgb(43 47 54 / 0.12);
+  --max-width: 1120px;
 }
