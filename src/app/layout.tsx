@@ -26,8 +26,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <header className="site-header">
           <div className="container">
-            <Link href="/" className="home-link" aria-label="My IT Helper home">
-              <Logo size={44} />
+            <Link href="/" className="home-link" aria-label="My IT Helper home page">
+              <Logo tone="light" height={40} preload className="header-logo" />
             </Link>
             <nav aria-label="Account">
               <Link href="/login" className="btn btn-outline btn-sm">Log in</Link>
@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="site-footer">
           <div className="container footer-top">
             <div>
-              <Logo size={28} />
+              <Logo tone="dark" height={30} />
               <p className="footer-tagline">The IT help desk built for schools.</p>
             </div>
             <nav className="footer-links" aria-label="Footer">

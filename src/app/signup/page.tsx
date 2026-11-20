@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Logo from "@/components/Logo";
 import SignupForm from "./SignupForm";
 
 // SIGN-UP PAGE ("/signup"): for a school's IT department.
@@ -12,6 +13,7 @@ export default function SignupPage() {
     <section className="auth-page notebook">
       <div className="container">
         <div className="auth-card">
+          <Logo variant="stacked" height={100} className="auth-logo" />
           <h1>Sign up your school</h1>
           <p className="auth-sub">
             For IT departments. Create your school&apos;s account, and your teachers get access once

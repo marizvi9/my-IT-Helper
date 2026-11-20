@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
 import {
   CheckCircleIcon, ClipboardIcon, KeyIcon, PaletteIcon, PencilDoodle, PlaneIcon,
   SchoolIcon, SmileIcon, StarDoodle,
@@ -123,6 +124,7 @@ export default function HomePage() {
       <section className="section section-tight">
         <div className="container">
           <div className="chalkboard">
+            <Logo variant="stacked" tone="light" height={140} className="chalkboard-logo" />
             <h2>Ready to make tech help easy?</h2>
             <p>Sign up your school, or take the demo for a spin first.</p>
             <div className="cta-row cta-center">

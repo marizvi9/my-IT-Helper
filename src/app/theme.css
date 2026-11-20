@@ -17,11 +17,11 @@
 
 :root {
   /* ---- Core school colors ---- */
-  --gold: #f5b700;            /* main school gold: buttons, highlights */
-  --gold-light: #fff3cc;      /* soft gold tint: badges, sticky notes */
-  --gold-lighter: #fffaeb;    /* very soft gold: backgrounds */
-  --gold-dark: #d29a00;       /* hover state + the "3D" edge under gold buttons */
-  --gold-text: #8a6200;       /* gold dark enough to read as text on white */
+  --gold: #ddbb30;            /* the logo's gold: buttons, highlights */
+  --gold-light: #f8eec7;      /* soft gold tint: badges, sticky notes */
+  --gold-lighter: #fdf9ea;    /* very soft gold: backgrounds */
+  --gold-dark: #b8991f;       /* hover state + the "3D" edge under gold buttons */
+  --gold-text: #7d6510;       /* gold dark enough to read as text on white */
 
   --charcoal: #2b2f36;        /* main dark gray: header, headings, logo */
   --charcoal-soft: #3d434d;   /* hover state for dark buttons */

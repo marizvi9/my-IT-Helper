@@ -99,14 +99,11 @@ main { flex: 1; }
 /* =====================================================================
    2. LOGO
    ===================================================================== */
-.logo { display: inline-flex; align-items: center; gap: 10px; }
-.logo-mark { flex: none; transition: transform 0.25s ease; }
-a:hover .logo-mark { transform: rotate(-6deg) scale(1.05); }
-.logo-text {
-  font-family: var(--font-heading), sans-serif;
-  font-weight: 600; font-size: 1.2rem; color: inherit; letter-spacing: -0.01em;
-}
-.logo-it { color: var(--gold); }
+.logo { display: block; height: auto; max-width: 100%; }
+.home-link { display: inline-flex; transition: transform 0.2s ease; }
+.home-link:hover { transform: rotate(-2deg) scale(1.03); }
+.chalkboard-logo { margin: 0 auto 22px; width: auto; height: 140px; }
+.auth-logo { margin: 0 auto 18px; width: auto; height: 100px; }
 
 /* =====================================================================
    3. HEADER & FOOTER
@@ -117,9 +114,8 @@ a:hover .logo-mark { transform: rotate(-6deg) scale(1.05); }
   gap: 12px; min-height: 76px;
 }
 .site-header .home-link { color: var(--white); text-decoration: none; }
-.site-header .logo-text { font-size: 1.45rem; }
 .site-header nav { display: flex; gap: 10px; }
-.site-header .logo-text, .site-header .btn { white-space: nowrap; }
+.site-header .btn { white-space: nowrap; }
 
 /* The gold ruler: a gold strip with small tick marks every 12px and tall ones every 60px */
 .ruler {
@@ -133,21 +129,17 @@ a:hover .logo-mark { transform: rotate(-6deg) scale(1.05); }
 /* Small phones: shrink the header a little so everything fits on one row */
 @media (max-width: 480px) {
   .site-header .container { min-height: 64px; }
-  .site-header .logo-mark { width: 34px; height: 34px; }
-  .site-header .logo { gap: 8px; }
-  .site-header .logo-text { font-size: 1.15rem; }
+  .header-logo { width: auto; height: 30px; }
   .site-header nav { gap: 6px; }
   .site-header .btn-sm { font-size: 0.85rem; padding: 0.45em 0.8em; }
 }
 
 .site-footer { background: var(--gray-100); border-top: 1px solid var(--gray-300); font-size: 0.92rem; color: var(--gray-500); }
-.site-footer .logo-text { color: var(--charcoal); font-size: 1.15rem; }
-.site-footer .logo-it { color: var(--gold-text); } /* gold text would be too faint on the light footer */
 .footer-top {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
   gap: 16px; padding-top: 28px; padding-bottom: 22px;
 }
-.footer-tagline { margin: 6px 0 0; }
+.footer-tagline { margin: 10px 0 0; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 6px 22px; }
 .footer-links a { color: var(--gray-700); text-decoration: none; }
 .footer-links a:hover { color: var(--charcoal); text-decoration: underline; }
