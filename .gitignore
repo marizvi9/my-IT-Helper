@@ -1,0 +1,27 @@
+# ---- Dependencies & build output (re-created by npm / Next.js) ----
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# ---- SECRETS: never commit these ----
+# .env files hold API keys, database passwords, OAuth client secrets, etc.
+# Every .env variant is ignored. If you need to show which variables exist,
+# commit a ".env.example" with EMPTY values instead (allowed below).
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ---- Vercel's local link folder ----
+.vercel
+
+# ---- OS / editor clutter ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+npm-debug.log*
