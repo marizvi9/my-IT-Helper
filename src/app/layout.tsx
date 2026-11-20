@@ -1,0 +1,47 @@
+import type { Metadata, Viewport } from "next";
+import Link from "next/link";
+import Logo from "@/components/Logo";
+import "./theme.css";   // school colors (load first so globals.css can use them)
+import "./globals.css"; // shared styles
+
+// <title> and description shown in browser tabs and search results.
+export const metadata: Metadata = {
+  title: { default: "My IT Helper", template: "%s · My IT Helper" },
+  description: "IT help tickets made simple for schools. Teachers ask for help, IT fixes it.",
+};
+
+// Makes the site fit phone screens properly.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#2b2f36", // browser bar color on phones (matches --charcoal in theme.css)
+};
+
+// The layout wraps EVERY page: header on top, the page in the middle, footer at the bottom.
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <header className="site-header">
+          <div className="container">
+            <Link href="/" className="home-link" aria-label="My IT Helper home">
+              <Logo />
+            </Link>
+            <nav aria-label="Account">
+              <Link href="/login" className="btn btn-outline btn-sm">Log in</Link>
+              <Link href="/signup" className="btn btn-primary btn-sm">Sign up</Link>
+            </nav>
+          </div>
+        </header>
+
+        <main>{children}</main>
+
+        <footer className="site-footer">
+          <div className="container">
+            <p style={{ margin: 0 }}>© {new Date().getFullYear()} My IT Helper · Built for schools</p>
+          </div>
+        </footer>
+      </body>
+    </html>
+  );
+}

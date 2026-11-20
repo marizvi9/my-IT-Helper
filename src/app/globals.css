@@ -1,0 +1,183 @@
+/* Shared styles for the whole site.
+   Colors ALWAYS come from theme.css variables. Never type a hex color here. */
+
+/* ---------- Basics ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { color-scheme: light; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--off-white);
+  color: var(--gray-700);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2, h3 { color: var(--charcoal); line-height: 1.2; margin: 0 0 0.5em; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); }
+h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); }
+h3 { font-size: 1.1rem; }
+p  { margin: 0 0 1em; }
+
+a { color: var(--gold-text); }
+a:hover { text-decoration-thickness: 2px; }
+
+/* Visible focus outline for keyboard users (accessibility) */
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* Centers content and keeps a 16px gutter on phones */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+main { flex: 1; }
+
+/* ---------- Logo ---------- */
+.logo { display: inline-flex; align-items: center; gap: 10px; }
+.logo-text { font-weight: 800; font-size: 1.15rem; color: inherit; letter-spacing: -0.01em; }
+
+/* ---------- Header & footer ---------- */
+.site-header { background: var(--charcoal); color: var(--white); border-bottom: 4px solid var(--gold); }
+.site-header .container {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; min-height: 64px;
+}
+.site-header .home-link { color: var(--white); text-decoration: none; }
+.site-header nav { display: flex; gap: 8px; }
+
+.site-footer { background: var(--gray-100); border-top: 1px solid var(--gray-300); font-size: 0.9rem; color: var(--gray-500); }
+.site-footer .container { padding-top: 20px; padding-bottom: 20px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 0.7em 1.3em;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  font: inherit; font-weight: 700; line-height: 1.2;
+  text-decoration: none; cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+.btn-sm { padding: 0.45em 0.9em; font-size: 0.9rem; }
+.btn-primary { background: var(--gold); color: var(--charcoal); }
+.btn-primary:hover { background: var(--gold-dark); }
+.btn-dark { background: var(--charcoal); color: var(--white); }
+.btn-dark:hover { background: var(--charcoal-soft); }
+.btn-outline { background: transparent; color: var(--charcoal); border-color: var(--charcoal); }
+.btn-outline:hover { background: var(--gray-100); }
+/* Outline button on the dark header */
+.site-header .btn-outline { color: var(--white); border-color: var(--white); }
+.site-header .btn-outline:hover { background: var(--charcoal-soft); }
+.btn[aria-disabled="true"] { opacity: 0.6; cursor: not-allowed; }
+
+/* ---------- Landing page ---------- */
+.hero { padding: 56px 0 48px; background: linear-gradient(180deg, var(--white), var(--off-white)); }
+.hero .container { display: grid; gap: 32px; align-items: center; }
+.hero-lead { font-size: 1.15rem; max-width: 36em; }
+.eyebrow {
+  display: inline-block; margin-bottom: 12px; padding: 4px 10px;
+  background: var(--gold-light); color: var(--gold-text);
+  border-radius: 999px; font-size: 0.85rem; font-weight: 700;
+}
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.soon { font-size: 0.75rem; font-weight: 600; opacity: 0.85; }
+
+/* Little "ticket" illustration card in the hero */
+.ticket-card {
+  background: var(--white); border: 1px solid var(--gray-300); border-left: 6px solid var(--gold);
+  border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; max-width: 420px;
+}
+.ticket-card .ticket-top { display: flex; justify-content: space-between; gap: 8px; font-size: 0.85rem; color: var(--gray-500); }
+.ticket-card .ticket-title { margin: 8px 0 4px; font-weight: 700; color: var(--charcoal); }
+.status { padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; }
+.status-open { background: var(--gold-light); color: var(--gold-text); }
+
+.section { padding: 48px 0; }
+.section-alt { background: var(--gray-100); }
+.steps, .features { display: grid; gap: 16px; padding: 0; margin: 24px 0 0; list-style: none; }
+.card {
+  background: var(--white); border: 1px solid var(--gray-300);
+  border-radius: var(--radius); padding: 20px;
+}
+.step-num {
+  display: inline-grid; place-items: center; width: 32px; height: 32px; margin-bottom: 8px;
+  background: var(--gold); color: var(--charcoal); border-radius: 50%; font-weight: 800;
+}
+
+/* Wider screens: side-by-side layouts */
+@media (min-width: 760px) {
+  .hero .container { grid-template-columns: 1.3fr 1fr; }
+  .steps { grid-template-columns: repeat(3, 1fr); }
+  .features { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- Auth pages (sign up / log in) ---------- */
+.auth-page { padding: 40px 0 56px; }
+.auth-card {
+  width: 100%; max-width: 460px; margin: 0 auto;
+  background: var(--white); border: 1px solid var(--gray-300); border-top: 5px solid var(--gold);
+  border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px 20px;
+}
+@media (min-width: 480px) { .auth-card { padding: 32px; } }
+.auth-card h1 { font-size: 1.7rem; }
+.auth-sub { color: var(--gray-500); }
+.auth-switch { text-align: center; margin: 20px 0 0; font-size: 0.95rem; }
+
+.social-buttons { display: grid; gap: 10px; }
+.btn-social { background: var(--white); color: var(--charcoal); border: 1px solid var(--gray-300); width: 100%; }
+.btn-social:hover { background: var(--gray-100); }
+
+.divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: var(--gray-500); font-size: 0.85rem; }
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--gray-300); }
+
+/* ---------- Form fields ---------- */
+.field { margin-bottom: 16px; }
+.field label { display: block; margin-bottom: 4px; font-weight: 600; color: var(--charcoal); }
+.field input {
+  width: 100%; padding: 0.65em 0.8em;
+  font: inherit; color: var(--charcoal); background: var(--white);
+  border: 1px solid var(--gray-300); border-radius: var(--radius-sm);
+}
+.field input:focus-visible { outline: 3px solid var(--focus); outline-offset: 0; border-color: var(--focus); }
+.field input[aria-invalid="true"] { border-color: var(--error); }
+.hint { margin: 4px 0 0; font-size: 0.85rem; color: var(--gray-500); }
+.error-text { margin: 4px 0 0; font-size: 0.85rem; color: var(--error); font-weight: 600; }
+
+.password-wrap { position: relative; }
+.password-wrap input { padding-right: 4.5em; }
+.toggle-visibility {
+  position: absolute; top: 50%; right: 6px; transform: translateY(-50%);
+  padding: 4px 8px; background: none; border: none; border-radius: var(--radius-sm);
+  font: inherit; font-size: 0.85rem; font-weight: 700; color: var(--gold-text); cursor: pointer;
+}
+
+/* Password strength meter */
+.strength { margin-top: 8px; }
+.strength-bar { height: 6px; background: var(--gray-100); border-radius: 999px; overflow: hidden; }
+.strength-fill { height: 100%; transition: width 0.2s; }
+.strength-weak   { background: var(--error); }
+.strength-okay   { background: var(--gold); }
+.strength-strong { background: var(--success); }
+.strength-list { list-style: none; padding: 0; margin: 6px 0 0; font-size: 0.85rem; }
+.strength-list .met { color: var(--success); }
+.strength-list .unmet { color: var(--gray-500); }
+
+.label-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.label-row a, .label-row span { font-size: 0.85rem; }
+
+.form-submit { width: 100%; margin-top: 8px; }
+
+/* Messages shown after submitting */
+.notice { padding: 12px 14px; border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 0.95rem; }
+.notice-info { background: var(--gold-light); color: var(--charcoal); border: 1px solid var(--gold); }
+.notice-success { background: var(--success-bg); color: var(--success); border: 1px solid var(--success); }
+.notice-error { background: var(--error-bg); color: var(--error); border: 1px solid var(--error); }
