@@ -30,7 +30,7 @@ export default function HomePage() {
           <div className="hero-copy">
             <span className="eyebrow"><SchoolIcon size={16} /> IT help desk for schools</span>
             <h1>
-              Tech trouble? Teachers ask. <span className="highlight">IT fixes it.</span>
+              Help with tech shouldn&apos;t be <span className="highlight">this hard.</span>
             </h1>
             <p className="hero-lead">
               My IT Helper gives every teacher a simple way to report a broken projector, a

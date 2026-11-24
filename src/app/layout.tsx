@@ -8,7 +8,7 @@ import "./globals.css"; // shared styles
 // <title> and description shown in browser tabs and search results.
 export const metadata: Metadata = {
   title: { default: "My IT Helper", template: "%s · My IT Helper" },
-  description: "IT help tickets made simple for schools. Teachers ask for help, IT fixes it.",
+  description: "Help with tech shouldn't be this hard. My IT Helper is a simple IT help desk for schools.",
 };
 
 // Makes the site fit phone screens properly.
